@@ -45,7 +45,7 @@ func TestUpdatePost(t *testing.T) {
 	statusCode, _ = unit.FakeRequest(t, "PUT", "/api/v1/posts/aa", router, map[string]any{
 		"content": "Lorem ipsum",
 	})
-	assert.Equal(t, http.StatusBadRequest, statusCode)
+	assert.Equal(t, http.StatusUnprocessableEntity, statusCode)
 	// Test with large id
 	statusCode, _ = unit.FakeRequest(t, "PUT", "/api/v1/posts/170", router, map[string]any{
 		"author": "John Doe",

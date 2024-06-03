@@ -25,5 +25,5 @@ func TestReadPost(t *testing.T) {
 	statusCode, _ = unit.FakeRequest(t, "GET", "/api/v1/posts/151", router, nil)
 	assert.Equal(t, http.StatusNotFound, statusCode)
 	statusCode, _ = unit.FakeRequest(t, "GET", "/api/v1/posts/asd", router, nil)
-	assert.Equal(t, http.StatusBadRequest, statusCode)
+	assert.Equal(t, http.StatusUnprocessableEntity, statusCode)
 }

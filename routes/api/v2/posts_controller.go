@@ -96,7 +96,7 @@ func (pc *PostsController) updateByIdHandler(ctx context.Context, input *UpdateP
 	// Find post we want to update
 	post, err := pc.dataSource.ReadPost(input.Id)
 	if err != nil {
-		return nil, err
+		return nil, huma.Error404NotFound(err.Error(), err)
 	}
 	if input.Body.Title != "" {
 		post.Title = input.Body.Title

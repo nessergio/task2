@@ -39,7 +39,7 @@ func (pc *PostsController) updateByIdHandler(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		_ = c.Error(err)
-		_ = c.AbortWithError(http.StatusBadRequest, fmt.Errorf("invalid id"))
+		_ = c.AbortWithError(http.StatusUnprocessableEntity, fmt.Errorf("invalid id"))
 		return
 	}
 	// Find post we want to update
@@ -72,7 +72,7 @@ func (pc *PostsController) deleteByIdHandler(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		_ = c.Error(err)
-		_ = c.AbortWithError(http.StatusBadRequest, fmt.Errorf("invalid id"))
+		_ = c.AbortWithError(http.StatusUnprocessableEntity, fmt.Errorf("invalid id"))
 		return
 	}
 	post, err := pc.dataSource.DeletePost(id)
@@ -89,7 +89,7 @@ func (pc *PostsController) readByIdHandler(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		_ = c.Error(err)
-		_ = c.AbortWithError(http.StatusBadRequest, fmt.Errorf("invalid id"))
+		_ = c.AbortWithError(http.StatusUnprocessableEntity, fmt.Errorf("invalid id"))
 		return
 	}
 	a, err := pc.dataSource.ReadPost(id)
