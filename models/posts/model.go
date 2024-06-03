@@ -6,17 +6,17 @@ import (
 )
 
 type Post struct {
-	ID      int    `json:"id"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
-	Author  string `json:"author"`
+	ID      int    `json:"id" minimum:"0"`
+	Title   string `json:"title" maxLength:"50"`
+	Content string `json:"content" maxLength:"5000"`
+	Author  string `json:"author" maxLength:"50"`
 }
 
 type DataSource interface {
 	ListPosts() []*Post
-	CreatePost(*Post)
+	CreatePost(*Post) (*Post, error)
 	ReadPost(int) (*Post, error)
-	UpdatePost(*Post) error
+	UpdatePost(*Post) (*Post, error)
 	DeletePost(int) (*Post, error)
 }
 

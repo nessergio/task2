@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 	"net/http"
-	"task2/routers/healthcheck"
+	"task2/routes/healthcheck"
 	"testing"
 )
 

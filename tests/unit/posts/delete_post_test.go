@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"net/http"
 	"task2/models/posts"
+	"task2/routes"
 	"task2/tests/unit"
 	"testing"
 )

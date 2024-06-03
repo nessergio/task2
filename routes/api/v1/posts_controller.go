@@ -59,7 +59,7 @@ func (pc *PostsController) updateByIdHandler(c *gin.Context) {
 		_ = c.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
-	if err = pc.dataSource.UpdatePost(post); err != nil {
+	if post, err = pc.dataSource.UpdatePost(post); err != nil {
 		// we already checked for not found error, so this may not happen
 		_ = c.AbortWithError(http.StatusBadRequest, err)
 		return

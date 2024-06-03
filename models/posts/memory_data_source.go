@@ -75,10 +75,11 @@ func (pm *MemoryDataSource) ListPosts() []*Post {
 }
 
 // CreatePost adds post to the map and sets id with maximum index
-func (pm *MemoryDataSource) CreatePost(post *Post) {
+func (pm *MemoryDataSource) CreatePost(post *Post) (*Post, error) {
 	pm.MaxPostId++
 	post.ID = pm.MaxPostId
 	pm.Posts[post.ID] = post
+	return post, nil
 }
 
 // ReadPost retrieves post  with given id from the map
@@ -91,13 +92,13 @@ func (pm *MemoryDataSource) ReadPost(id int) (*Post, error) {
 }
 
 // UpdatePost replaces record with given id in the map
-func (pm *MemoryDataSource) UpdatePost(post *Post) error {
+func (pm *MemoryDataSource) UpdatePost(post *Post) (*Post, error) {
 	_, ok := pm.Posts[post.ID]
 	if !ok {
-		return errorNotFound(post.ID)
+		return nil, errorNotFound(post.ID)
 	}
 	pm.Posts[post.ID] = post
-	return nil
+	return post, nil
 }
 
 // DeletePost deletes record with given id form a map
