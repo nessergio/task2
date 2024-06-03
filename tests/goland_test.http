@@ -1,0 +1,83 @@
+# Integration test for GoLand HTTP client
+
+###
+GET http://localhost:8080/
+
+###
+POST http://localhost:8080/api/v1/posts
+Content-Type: application/json
+
+{
+  "title": "New post",
+  "author": "John Doe",
+  "content": "Hello World"
+}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+%}
+
+###
+GET http://localhost:8080/api/v1/posts
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.length === 101, "Less posts than expected")
+    });
+%}
+
+###
+GET http://localhost:8080/api/v1/posts/99
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(JSON.stringify(response.body) ===
+        "{\"id\":99,\"title\":\"Title 99\",\"content\":\"Dolorem porro adipisci tempora magnam modi ipsum. Quisquam consectetur voluptatem velit dolore labore. Amet voluptatem consectetur porro neque voluptatem. Velit sed quisquam amet velit. Porro est neque voluptatem dolor est adipisci numquam. Non etincidunt neque magnam ut porro dolore.\",\"author\":\"Author 99\"}", "Body match expected response")
+    });
+%}
+
+###
+PUT  http://localhost:8080/api/v1/posts/99
+Content-Type: application/json
+
+{
+  "author": "Bill Gilbert"
+}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+###
+GET http://localhost:8080/api/v1/posts/99
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.author === "Bill Gilbert", "Body match expected response")
+    });
+%}
+
+###
+DELETE http://localhost:8080/api/v1/posts/99
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+###
+GET http://localhost:8080/api/v1/posts/99
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 404, "Response status is not 404");
+    });
+%}
